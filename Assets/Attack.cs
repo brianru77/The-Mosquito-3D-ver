@@ -8,7 +8,6 @@ public class Attack : MonoBehaviour
 {
     private Rigidbody rb;
     private Animator anime;
-
     [Header("Dash Settings")] //대시설정
     private float dashSpeed = 60f;
     private float maxDashDistance = 12f;
