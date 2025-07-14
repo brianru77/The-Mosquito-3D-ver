@@ -15,6 +15,10 @@
 + ## 개발 단계 업데이트
 > <img src="https://github.com/user-attachments/assets/aeaa5763-23ff-40fe-b300-c02fa34b769f" width="40%" height="60%">
 > <img src="https://github.com/user-attachments/assets/bf85b75c-fcd3-4e88-a50a-de6baa1ba0ce" width="40%" height="60%">
+---
+> <img src="https://github.com/user-attachments/assets/e189bbc7-a803-4602-9b9d-0d7e8ba2feed" width="40%" height="60%">
+> <img src="https://github.com/user-attachments/assets/4a0a32c2-4fc6-4d90-8cd4-0a0ba4788c32" width="40%" height="60%">
+
 + ### 기능 테스트
 > <img src="https://github.com/user-attachments/assets/ee148719-7d60-4c08-bfd9-5c249a984fa7" width="40%" height="60%">
 > <img src="https://github.com/user-attachments/assets/07eec0f0-9701-4ef2-ab50-4725e72b2a90" width="40%" height="60%">
