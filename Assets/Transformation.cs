@@ -5,8 +5,9 @@ using UnityEngine;
 public class Transformation : MonoBehaviour
 {
     public int transform_level = 0; //0평소 1중간혈압 2고혈압
+    public bool transform_level1 = false;
+    public bool transform_level2 = false;
     private Animator anime;
-
     public GameObject Transform_Effect1;
     public GameObject Transform_Effect12;
     public GameObject Transform_final_level_Effect;
@@ -20,43 +21,65 @@ public class Transformation : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (transform_level < 2)
+            if (transform_level <= 2)
             {
                 transform_level++;
                 StartCoroutine(TransformSequence(transform_level));
             }
         }
     }
-
     IEnumerator TransformSequence(int level)
     {
-        //애니메이터에 단계 전달
-        anime.SetInteger("Transform_level", level);
-
-        //이펙트 출력
-        if (level == 1 && Transform_Effect1 != null)
+        if (level == 1)
         {
-            GameObject effect = Instantiate(Transform_Effect1, transform.position, Quaternion.identity);
-            effect.transform.SetParent(transform); //따라다니게 설정
-            effect.transform.localPosition = new Vector3(0, 0, 0); //위치 발 밑으로
-            effect.transform.localRotation = Quaternion.identity;
+            transform_level1 = true;
+            anime.SetBool("transform_level1", true); //애니메이터에 bool 값 전달
+            Debug.Log("변신1단계!");
+
+            if (Transform_Effect1 != null)
+            {
+                GameObject effect = Instantiate(Transform_Effect1, transform.position, Quaternion.identity);
+                effect.transform.SetParent(transform);
+                effect.transform.localPosition = Vector3.zero;
+                effect.transform.localRotation = Quaternion.identity;
+            }
+            StartCoroutine(ResetTransformAfterDelay(1.3f)); //변신애니종료
         }
-        else if (level == 2 && Transform_Effect12 != null)
+        else if (level == 2)
         {
-            GameObject effect1 = Instantiate(Transform_Effect12, transform.position, Quaternion.identity);
-            effect1.transform.SetParent(transform);
-            effect1.transform.localPosition = new Vector3(0, 0.7f, 0);
-            effect1.transform.localRotation = Quaternion.identity;
+            transform_level2 = true;
+            anime.SetBool("transform_level2", true); //애니메이터에 bool 값 전달
+            Debug.Log("변신2단계!");
 
-            GameObject effect2 = Instantiate(Transform_final_level_Effect, transform.position, Quaternion.identity);
-            effect2.transform.SetParent(transform);
-            effect2.transform.localPosition = new Vector3(0, 0, 0);
-            effect2.transform.localRotation = Quaternion.identity;
+            if (Transform_Effect12 != null)
+            {
+                GameObject effect1 = Instantiate(Transform_Effect12, transform.position, Quaternion.identity);
+                effect1.transform.SetParent(transform);
+                effect1.transform.localPosition = new Vector3(0, 0.7f, 0);
+                effect1.transform.localRotation = Quaternion.identity;
+            }
 
-            Destroy(effect2, 2f); //폭발 임팩트는 일시적
+            if (Transform_final_level_Effect != null)
+            {
+                GameObject effect2 = Instantiate(Transform_final_level_Effect, transform.position, Quaternion.identity);
+                effect2.transform.SetParent(transform);
+                effect2.transform.localPosition = Vector3.zero;
+                effect2.transform.localRotation = Quaternion.identity;
+
+                Destroy(effect2, 2f);
+            }
+            StartCoroutine(ResetTransformAfterDelay(1.3f)); //변신애니종료
         }
-
         yield return new WaitForSeconds(1.5f);
+    }
+    IEnumerator ResetTransformAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        transform_level1 = false;
+        transform_level2 = false;
+        anime.SetBool("transform_level1", false);
+        anime.SetBool("transform_level2", false);
+        Debug.Log("변신 해제됨!");
     }
 }
 
