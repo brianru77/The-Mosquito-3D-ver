@@ -6,41 +6,44 @@ public class WeaponManager : MonoBehaviour
 {
     [Header("무기 소켓 위치 (손뼈의 자식 오브젝트)")]
     public Transform weaponSocket;
-
-    [Header("장착할 무기 프리팹")]
-    public GameObject weaponPrefab;
-
+    [Header("장착할 무기 프리팹들")]
+    public List<GameObject> weaponPrefabs;
+    private int currentWeaponIndex = -1;
     private GameObject currentWeapon;
 
-    void Start()
-    {
-        EquipWeapon();
-    }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            if (currentWeapon == null)
-            {
-                EquipWeapon();   //무기가 없으면 장착
-            }
-            else
-            {
-                UnequipWeapon(); //무기가 있으면 해제
-            }
-        }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchWeapon(0);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchWeapon(1);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchWeapon(2);
     }
-
-    //무기 장착 함수
-    public void EquipWeapon()
+    public void SwitchWeapon(int index)
     {
-        //기존 무기가 있다면 제거
+        if (index < 0 || index >= weaponPrefabs.Count)
+            return;
+
+        //같은 무기를 다시 선택하면 해제
+        if (currentWeaponIndex == index)
+        {
+            UnequipWeapon();
+            currentWeaponIndex = -1;
+            return;
+        }
+
+        //장착
+        UnequipWeapon();
+        EquipWeapon(weaponPrefabs[index]);
+        currentWeaponIndex = index;
+    }
+    //무기 장착
+    public void EquipWeapon(GameObject prefab)
+    {
         if (currentWeapon != null)
         {
             Destroy(currentWeapon);
         }
-        //무기 생성 후 소켓에 붙이기
-        currentWeapon = Instantiate(weaponPrefab, weaponSocket);
+
+        currentWeapon = Instantiate(prefab, weaponSocket);
         currentWeapon.transform.localPosition = Vector3.zero;
         currentWeapon.transform.localRotation = Quaternion.identity;
     }

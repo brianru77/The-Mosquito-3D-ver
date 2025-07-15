@@ -22,38 +22,63 @@ public class Attack : MonoBehaviour
     public bool isAttacking = false;   //공격 중인지
     public int isSlashing = 0;         //현재 슬래시 어택 단계
     public bool Illusion_Sword_Dance = false;
+    public bool Sword_Shoot = false;
 
     private GameObject dashTargetObject = null; //대시 타겟이 있을 경우 저장
     private bool canAttack = true;              //공격 가능 여부
     public float attackCooldown = 1.0f;         //공격 쿨타임
+    private Transformation get_transform_level;
+    [SerializeField] private GameObject projectilePrefab; //투사체 프리팹
+    [SerializeField] private Transform projectileSpawnPoint; //투사체가 발사될 위치
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         anime = GetComponent<Animator>();
+        get_transform_level = GetComponent<Transformation>();
     }
     void Update()
     {
-        Debug.Log("현재 슬래쉬 공격 단계: " + isSlashing);
-
         //슬래시 어택
         if (Input.GetMouseButtonDown(0) && canAttack && isSlashing == 0)
         {
-            isSlashing = 1;
-            StartCoroutine(AttackRoutine());          //공격 애니메이션 처리
-            StartCoroutine(AttackCool_Time());  //공격 쿨타임 처리
+            if (get_transform_level.transform_level1 == true)
+            {
+                isSlashing = 1;
+                StartCoroutine(Illusion_Sword());
+                StartCoroutine(AttackCool_Time());
+            }
+            else if (get_transform_level.transform_level2 == true)
+            {
+                isSlashing = 1;
+                StartCoroutine(Illusion_Sword());
+                StartCoroutine(AttackCool_Time());
+            }
+            else
+            {
+                isSlashing = 1;
+                StartCoroutine(AttackRoutine()); //공격 애니메이션 처리
+                StartCoroutine(AttackCool_Time()); //공격 쿨타임 처리
+            }
         }
-
-        // F키 공격
-        if (Input.GetKey(KeyCode.F) && canAttack && isSlashing == 0)
+        //슬래시 날리기
+        if (Input.GetMouseButtonDown(1) && canAttack && isSlashing == 0)
         {
-            isSlashing = 1;
-            StartCoroutine(Illusion_Sword());
-            StartCoroutine(AttackCool_Time());
+            if (get_transform_level.transform_level1 || get_transform_level.transform_level2)
+            {
+                isSlashing = 1;
+                StartCoroutine(Sword_Shooting());
+                StartCoroutine(AttackCool_Time());
+            }
+            else
+            {
+                isSlashing = 1;
+                StartCoroutine(Sword_Shooting());
+                StartCoroutine(AttackCool_Time());
+            }
         }
-
         //대시
-        if (Input.GetMouseButtonDown(1) && !isDashing)
+        if (Input.GetKeyDown(KeyCode.F) && !isDashing)
         {
             TryDash(); //자동 타겟
         }
@@ -64,6 +89,43 @@ public class Attack : MonoBehaviour
         }
         else
             anime.speed = 1f;
+
+        if (Sword_Shoot)
+        {
+            anime.speed = 2f;
+        }
+        else
+            anime.speed = 1f;
+    }
+    IEnumerator Sword_Shooting() //투사체 발사
+    {
+        Sword_Shoot = true;
+        anime.SetBool("Sword_Shoot", true); //애니메이션 파라미터 설정
+        yield return new WaitForSeconds(attackDuration); //애니메이션 재생 대기
+
+        //투사체 생성 및 발사
+        LaunchProjectile();
+
+        isSlashing = 0;
+        anime.SetBool("Sword_Shoot", false);
+        Sword_Shoot = false;
+    }
+    //투사체 발사 함수
+    void LaunchProjectile()
+    {
+        //투사체를 생성하고 발사
+        GameObject projectile = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
+
+        //캐릭터 전방으로 발사
+        Vector3 direction = transform.forward; //전방 방향
+        float speed = 25f; //발사 속도
+
+        //Rigidbody를 통해 투사체 이동
+        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.velocity = direction * speed;
+        }
     }
     IEnumerator Illusion_Sword()
     {

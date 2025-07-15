@@ -1214,6 +1214,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 737655894}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 737655896}
     - targetCorrespondingSourceObject: {fileID: 8758243483808879120, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1854512788}
@@ -1250,7 +1253,10 @@ MonoBehaviour:
   isAttacking: 0
   isSlashing: 0
   Illusion_Sword_Dance: 0
+  Sword_Shoot: 0
   attackCooldown: 1
+  projectilePrefab: {fileID: 4913896080622464851, guid: 4c7e84a597e06994bb39bb4fba170256, type: 3}
+  projectileSpawnPoint: {fileID: 737655882}
 --- !u!136 &737655884
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1367,7 +1373,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSocket: {fileID: 705570205}
-  weaponPrefab: {fileID: 5436868260460024349, guid: 7e63047e14b39bc49b4d8a5a7d39e467, type: 3}
+  weaponPrefabs:
+  - {fileID: 5436868260460024349, guid: 7e63047e14b39bc49b4d8a5a7d39e467, type: 3}
+  - {fileID: 4214597693441333592, guid: 36589f066b25b1b4dab74eb18d6972fd, type: 3}
+  - {fileID: 5953977592163608830, guid: 7193085109a5a7348b773a9d48156fa9, type: 3}
 --- !u!114 &737655894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1381,9 +1390,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transform_level: 0
+  transform_level1: 0
+  transform_level2: 0
   Transform_Effect1: {fileID: 100004, guid: 55700a754af55ac429f02417b245ae86, type: 3}
   Transform_Effect12: {fileID: 100000, guid: 8f4c8e6e19f6811488df5bbe56510f9d, type: 3}
   Transform_final_level_Effect: {fileID: 100002, guid: 4bf22a1d8d9e7724b9af67921436851d, type: 3}
+--- !u!114 &737655896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737655881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06796faeb2969014c9e715f065f1ed19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Effects_electricity: {fileID: 8762405910555896786, guid: fcb74f28d107e284e80af037bfec14ca, type: 3}
 --- !u!1 &738849956
 GameObject:
   m_ObjectHideFlags: 0

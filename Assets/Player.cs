@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,7 +10,6 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform CameraDT;    //카메라 회전 기준점
     [SerializeField] private float mouseSensitivity = 3f;
     public float moveSpeed = 10f;
-
     private float xRotation = 0f;
     private float yRotation = 0f;
     private Animator anime;
@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     private bool Flying;
     public bool isMoving;
     private Attack get_attackScript; //공격 중 멈추기
+    private Transformation get_transform_level;
     [SerializeField] private Transform respawnTransform;
 
     void OnCollisionEnter(Collision collision) //충돌_Trigger가 체크 꺼짐
@@ -45,12 +46,25 @@ public class Player : MonoBehaviour
         Cursor.visible = false;
         anime.applyRootMotion = false;
         get_attackScript = GetComponent<Attack>();
+        get_transform_level = GetComponent<Transformation>();
         transform.rotation = Quaternion.identity; //유니티 좌표로 회전값 강제 정렬
     }
 
     void Update()
     {
         LookAround();
+        if (get_transform_level.transform_level1 == true)
+        {
+            moveSpeed = 15f;
+        }
+        else if (get_transform_level.transform_level2 == true)
+        {
+            moveSpeed = 20f;
+        }
+        else
+        {
+            moveSpeed = 10f;
+        }
     }
 
     void FixedUpdate()
@@ -96,7 +110,6 @@ public class Player : MonoBehaviour
         Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         this.isMoving = moveInput.magnitude > 0.1f;
 
-        float currentSpeed = moveSpeed;
         bool isRunning = isMoving && Input.GetKey(KeyCode.LeftShift);
         if (moveInput.magnitude > 0.1)
         {
@@ -104,7 +117,8 @@ public class Player : MonoBehaviour
         }
         //달리기 시 속도 증가
         if (isRunning)
-            currentSpeed = 25f;
+            moveSpeed = moveSpeed * 2;
+        else moveSpeed = 10f;
 
         //이동 방향 보정
         float moveX = moveInput.x;
@@ -144,7 +158,7 @@ public class Player : MonoBehaviour
             Vector3 moveDir = forward * moveInput.y + right * moveInput.x;
             moveDir = Vector3.ProjectOnPlane(moveDir, Vector3.up); //수평 이동만 적용
 
-            Vector3 targetPos = rb.position + moveDir.normalized * currentSpeed * Time.deltaTime;
+            Vector3 targetPos = rb.position + moveDir.normalized * moveSpeed * Time.deltaTime;
             targetPos.y = rb.position.y; //y 위치 고정
 
             rb.MovePosition(targetPos); //이동 적용

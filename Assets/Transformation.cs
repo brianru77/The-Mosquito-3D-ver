@@ -75,8 +75,8 @@ public class Transformation : MonoBehaviour
     IEnumerator ResetTransformAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        transform_level1 = false;
-        transform_level2 = false;
+        // transform_level1 = false;
+        // transform_level2 = false;
         anime.SetBool("transform_level1", false);
         anime.SetBool("transform_level2", false);
         Debug.Log("변신 해제됨!");
