@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1309515041262876887}
   m_Layer: 0
   m_Name: Sword8_Gold
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

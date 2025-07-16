@@ -828,6 +828,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f2847e30a84132446bad1fd7fb971cbd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1362093335}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f2847e30a84132446bad1fd7fb971cbd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1362093336}
   m_SourcePrefab: {fileID: 100100000, guid: f2847e30a84132446bad1fd7fb971cbd, type: 3}
 --- !u!1 &333756921
 GameObject:
@@ -1921,6 +1924,19 @@ MonoBehaviour:
   moveSpeed: 2
   floatAmplitude: 0.5
   floatFrequency: 1
+--- !u!114 &1362093336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1362093330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30eab39393d4aec448d5e23b44558fa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 5
 --- !u!1 &1396102490
 GameObject:
   m_ObjectHideFlags: 0
@@ -2409,6 +2425,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6411229381061603815, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
   m_PrefabInstance: {fileID: 737655880}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1755673323
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1755673325}
+  - component: {fileID: 1755673324}
+  m_Layer: 0
+  m_Name: Enemy_respawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1755673324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755673323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6cd48796bd1c24e9b50d8ea9cfed9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mosquitoPrefab: {fileID: 1362093330}
+  spawnAreaCenter: {fileID: 1755673325}
+  spawnAreaSize: {x: 10, y: 5, z: 10}
+  spawnInterval: 3
+  maxMosquitoCount: 10
+--- !u!4 &1755673325
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755673323}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.6, y: -42.1, z: 21.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1854512786 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8758243483808879120, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
@@ -2575,3 +2640,4 @@ SceneRoots:
   - {fileID: 703919434}
   - {fileID: 1230933395}
   - {fileID: 309412451}
+  - {fileID: 1755673325}

@@ -8,6 +8,7 @@ TagManager:
   - RespawnZone
   - Mos
   - FxTemporaire
+  - Weapon
   layers:
   - Default
   - TransparentFX
