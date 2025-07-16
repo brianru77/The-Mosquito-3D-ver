@@ -111,13 +111,9 @@ public class Player : MonoBehaviour
         this.isMoving = moveInput.magnitude > 0.1f;
 
         bool isRunning = isMoving && Input.GetKey(KeyCode.LeftShift);
-        if (moveInput.magnitude > 0.1)
-        {
-            anime.speed = 1.4f;
-        }
         //달리기 시 속도 증가
         if (isRunning)
-            moveSpeed = moveSpeed * 2;
+            moveSpeed = moveSpeed * 2.3f;
         else moveSpeed = 10f;
 
         //이동 방향 보정

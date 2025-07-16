@@ -20,12 +20,10 @@ public class Attack : MonoBehaviour
 
     private bool isDashing = false;    //대시 중인지
     public bool isAttacking = false;   //공격 중인지
-    public int isSlashing = 0;         //현재 슬래시 어택 단계
     public bool Illusion_Sword_Dance = false;
     public bool Sword_Shoot = false;
-
     private GameObject dashTargetObject = null; //대시 타겟이 있을 경우 저장
-    private bool canAttack = true;              //공격 가능 여부
+    private bool Cooltime = true;              //공격 가능 여부
     public float attackCooldown = 1.0f;         //공격 쿨타임
     private Transformation get_transform_level;
     [SerializeField] private GameObject projectilePrefab; //투사체 프리팹
@@ -39,40 +37,36 @@ public class Attack : MonoBehaviour
     }
     void Update()
     {
+        Debug.Log("현재 애니속도" + anime.speed);
         //슬래시 어택
-        if (Input.GetMouseButtonDown(0) && canAttack && isSlashing == 0)
+        if (Input.GetMouseButtonDown(0) && Cooltime && !isAttacking)
         {
             if (get_transform_level.transform_level1 == true)
             {
-                isSlashing = 1;
                 StartCoroutine(Illusion_Sword());
                 StartCoroutine(AttackCool_Time());
             }
             else if (get_transform_level.transform_level2 == true)
             {
-                isSlashing = 1;
                 StartCoroutine(Illusion_Sword());
                 StartCoroutine(AttackCool_Time());
             }
             else
             {
-                isSlashing = 1;
                 StartCoroutine(AttackRoutine()); //공격 애니메이션 처리
                 StartCoroutine(AttackCool_Time()); //공격 쿨타임 처리
             }
         }
         //슬래시 날리기
-        if (Input.GetMouseButtonDown(1) && canAttack && isSlashing == 0)
+        if (Input.GetMouseButtonDown(1) && Cooltime && !isAttacking)
         {
             if (get_transform_level.transform_level1 || get_transform_level.transform_level2)
             {
-                isSlashing = 1;
                 StartCoroutine(Sword_Shooting());
                 StartCoroutine(AttackCool_Time());
             }
             else
             {
-                isSlashing = 1;
                 StartCoroutine(Sword_Shooting());
                 StartCoroutine(AttackCool_Time());
             }
@@ -82,33 +76,22 @@ public class Attack : MonoBehaviour
         {
             TryDash(); //자동 타겟
         }
-
-        if (Illusion_Sword_Dance)
-        {
-            anime.speed = 3f;
-        }
-        else
-            anime.speed = 1f;
-
-        if (Sword_Shoot)
-        {
-            anime.speed = 2f;
-        }
-        else
-            anime.speed = 1f;
     }
     IEnumerator Sword_Shooting() //투사체 발사
     {
+        isAttacking = true;
+        anime.speed = 3f;
         Sword_Shoot = true;
         anime.SetBool("Sword_Shoot", true); //애니메이션 파라미터 설정
-        yield return new WaitForSeconds(attackDuration); //애니메이션 재생 대기
+        yield return new WaitForSeconds(attackDuration);
 
         //투사체 생성 및 발사
         LaunchProjectile();
 
-        isSlashing = 0;
         anime.SetBool("Sword_Shoot", false);
         Sword_Shoot = false;
+        anime.speed = 1f;
+        isAttacking = false;
     }
     //투사체 발사 함수
     void LaunchProjectile()
@@ -134,30 +117,29 @@ public class Attack : MonoBehaviour
         anime.SetBool("Illusion_Sword_Dance", true); //애니메이션 파라미터 설정
         yield return new WaitForSeconds(attackDuration); //애니메이션 재생 대기
 
-        isSlashing = 0;
         anime.SetBool("Illusion_Sword_Dance", false);
         Illusion_Sword_Dance = false;
         anime.speed = 1f;
 
     }
-    //공격 동작을 처리하는 코루틴
+    //기본기 코루틴
     IEnumerator AttackRoutine()
     {
         isAttacking = true;
-        anime.SetInteger("isSlashing", isSlashing); //애니메이션 파라미터 설정
+        anime.speed = 1f;
+        anime.SetTrigger("Slash");
         yield return new WaitForSeconds(attackDuration); //애니메이션 재생 대기
 
-        isSlashing = 0;                          //공격 종료
-        anime.SetInteger("isSlashing", isSlashing);
-        isAttacking = false;
+        anime.SetTrigger("Slash");
+        isAttacking = false; //공격종료
     }
 
     //공격 쿨타임을 관리하는 코루틴
     IEnumerator AttackCool_Time()
     {
-        canAttack = false;                         //쿨타임 동안 공격 금지
+        Cooltime = false;                         //쿨타임 동안 공격 금지
         yield return new WaitForSeconds(attackCooldown);
-        canAttack = true;                          //쿨타임 종료 후 공격 가능
+        Cooltime = true;                          //쿨타임 종료 후 공격 가능
     }
 
     //대시 기능 (근처 적 자동 타겟팅)
