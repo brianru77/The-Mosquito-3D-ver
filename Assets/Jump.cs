@@ -17,6 +17,7 @@ public class Jump : MonoBehaviour
     private bool is_Jump_shockwave = false;
     //중력 강화_낙하 속도 빠르게
     [SerializeField] private float fallMultiplier = 1.15f; //인게임에서 리셋해줘야함
+    private Transformation get_transform_level;
 
     void FixedUpdate()
     {
@@ -30,6 +31,7 @@ public class Jump : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         anime = GetComponent<Animator>();
         anime.SetInteger("Jump", 0);
+        get_transform_level = GetComponent<Transformation>();
     }
 
     void Update()
@@ -102,8 +104,11 @@ public class Jump : MonoBehaviour
 
             if (is_Jump_shockwave)
             {
-                Invoke("Jump_CreateShockwave", 0.2f); // 충격파 발생
-                is_Jump_shockwave = false; //발생 후 초기화
+                if (get_transform_level.transform_level2 == true)
+                {
+                    Invoke("Jump_CreateShockwave", 0.2f); // 충격파 발생
+                    is_Jump_shockwave = false; //발생 후 초기화
+                }
             }
 
             Vector3 flatVelocity = new Vector3(rb.velocity.x, 0, rb.velocity.z); //리지드바디 잔상 제거

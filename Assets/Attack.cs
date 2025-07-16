@@ -11,20 +11,20 @@ public class Attack : MonoBehaviour
     [Header("Dash Settings")] //대시설정
     private float dashSpeed = 60f;
     private float maxDashDistance = 12f;
-    private float punchDistance = 0.1f;        //대시 후 펀치 거리
-    private float targetSearchRadius = 10f;    //대시 타겟 범위
+    private float punchDistance = 0.1f; //대시 후 펀치 거리
+    private float targetSearchRadius = 10f; //대시 타겟 범위
     [SerializeField] private LayerMask dashTargetMask; //대시 타겟 레이어
 
     [Header("Attack Settings")] //공격설정
     [SerializeField] private float attackDuration = 0.8f; //공격 애니메이션 지속 시간
 
-    private bool isDashing = false;    //대시 중인지
-    public bool isAttacking = false;   //공격 중인지
+    private bool isDashing = false; //대시 중인지
+    public bool isAttacking = false; //공격 중인지
     public bool Illusion_Sword_Dance = false;
     public bool Sword_Shoot = false;
     private GameObject dashTargetObject = null; //대시 타겟이 있을 경우 저장
-    private bool Cooltime = true;              //공격 가능 여부
-    public float attackCooldown = 1.0f;         //공격 쿨타임
+    private bool Cooltime = true; //공격 가능 여부
+    public float attackCooldown = 1.0f; //공격 쿨타임
     private Transformation get_transform_level;
     [SerializeField] private GameObject projectilePrefab; //투사체 프리팹
     [SerializeField] private Transform projectileSpawnPoint; //투사체가 발사될 위치
@@ -137,9 +137,9 @@ public class Attack : MonoBehaviour
     //공격 쿨타임을 관리하는 코루틴
     IEnumerator AttackCool_Time()
     {
-        Cooltime = false;                         //쿨타임 동안 공격 금지
+        Cooltime = false; //쿨타임 동안 공격 금지
         yield return new WaitForSeconds(attackCooldown);
-        Cooltime = true;                          //쿨타임 종료 후 공격 가능
+        Cooltime = true; //쿨타임 종료 후 공격 가능
     }
 
     //대시 기능 (근처 적 자동 타겟팅)

@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Transform PlayerBody;  //캐릭터 외형
-    [SerializeField] private Transform CameraDT;    //카메라 회전 기준점
+    [SerializeField] private Transform PlayerBody; //캐릭터 외형
+    [SerializeField] private Transform CameraDT; //카메라 회전 기준점
     [SerializeField] private float mouseSensitivity = 3f;
     public float moveSpeed = 10f;
     private float xRotation = 0f;
