@@ -55,11 +55,11 @@ public class Player : MonoBehaviour
         LookAround();
         if (get_transform_level.transform_level1 == true)
         {
-            moveSpeed = 15f;
+            moveSpeed = 12f;
         }
         else if (get_transform_level.transform_level2 == true)
         {
-            moveSpeed = 20f;
+            moveSpeed = 15f;
         }
         else
         {
