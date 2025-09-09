@@ -23,6 +23,7 @@
 > <img src="https://github.com/user-attachments/assets/07eec0f0-9701-4ef2-ab50-4725e72b2a90" width="40%" height="60%">
 ---
 > <img src="https://github.com/user-attachments/assets/65176c12-deb7-4dad-99ea-5d1221e4900e" width="80%" height="80%">
+> <img src="https://github.com/user-attachments/assets/7a2cb97e-d54e-4d7c-9617-0b9e3f0fe346" width="80%" height="80%">
 
 + ## 게임 플레이 영상 
 + ## 🏴‍승리조건 업데이트
