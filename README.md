@@ -26,7 +26,7 @@
 > <img src="https://github.com/user-attachments/assets/7a2cb97e-d54e-4d7c-9617-0b9e3f0fe346" width="80%" height="80%">
 
 + ## 게임 플레이 영상 
-+ ## 🏴‍승리조건 업데이트
++ ## 승리조건 업데이트
 ---
 + ## 타이틀 및 엔딩
 + ### 에셋 이슈
